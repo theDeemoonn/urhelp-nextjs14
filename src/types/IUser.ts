@@ -5,20 +5,20 @@ export enum UserRole {
 }
 
 export interface IUser {
-	id: number
+
 	email: string
 	password: string
 	surname: string
 	name: string
-	age: number
-	phone: number
+	age: string
+	phone: string
 	description: string
 	avatar: string
 	banned: boolean
 	banReason: string
-	createdAt: string
-	updatedAt: string
-	roles: Role[]
+
+	// roles: Role[]
+	role: string
 }
 
 export interface Role {
