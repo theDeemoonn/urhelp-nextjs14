@@ -28,10 +28,12 @@ export const authConfig: AuthOptions = {
       async authorize(credentials) {
         const { email, password } = credentials as IUser;
 
+        
+
         try {
           await connectMongoDB();
           const user = await User.findOne({ email });
-        console.log("user: ", user);
+        
           if (!user) {
             return null;
           }
