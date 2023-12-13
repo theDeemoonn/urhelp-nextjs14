@@ -3,7 +3,7 @@ import User from "@/models/user";
 import { IUser } from "@/types/IUser";
 import { NextResponse } from "next/server";
 
-export async function POST(req) {
+export async function POST(req:any) {
   try {
     await connectMongoDB();
     const { email  } : IUser = await req.json();

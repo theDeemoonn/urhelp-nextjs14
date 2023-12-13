@@ -9,6 +9,7 @@ import { TypeOf, object, string } from "zod";
 import { useRouter } from "next/navigation";
 
 import { usePathname } from "next/navigation";
+import { revalidatePath } from "next/cache";
 
 import {
   Form,
@@ -23,6 +24,7 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { useToast } from "./ui/use-toast";
 import { ToastAction } from "./ui/toast";
+import { set } from "mongoose";
 
 const loginSchema = object({
   email: string()
@@ -65,7 +67,10 @@ const LoginForm = () => {
         title: "Успешно",
         description: "Вы успешно вошли в систему",
       });
-      router.push("/");
+     
+      router.push("/profile");
+     
+      
     } else {
         toast({
             variant: "destructive",
@@ -115,7 +120,7 @@ const LoginForm = () => {
                 />
               </FormControl>
               <FormDescription
-                className="justify-end flex cursor-pointer"
+                className="justify-end flex cursor-pointer text-[10px]"
                 onClick={handleClickShowPassword}
               >
                 показать пароль

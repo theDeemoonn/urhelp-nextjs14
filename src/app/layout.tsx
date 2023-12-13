@@ -4,8 +4,9 @@ import "./globals.scss";
 import { cn } from "@/lib/utils";
 import { ThemeProvider } from "@/components/theme-provider";
 import { AuthProvider } from "@/components/auth-providers";
-import { Toaster } from "@/components/ui/toaster"
-
+import { Toaster } from "@/components/ui/toaster";
+import HeaderComponent from "@/components/header";
+import FooterComponent from "@/components/footer";
 
 const fontSans = FontSans({
   subsets: ["latin"],
@@ -17,12 +18,11 @@ export const metadata: Metadata = {
   description: "Назначай цену которая тебя устраивает",
 };
 
-export default  function RootLayout({
+export default function RootLayout({
   children,
 }: {
   readonly children: React.ReactNode;
 }) {
-  
   return (
     <html lang="ru">
       <body
@@ -38,7 +38,10 @@ export default  function RootLayout({
             enableSystem
             disableTransitionOnChange
           >
+            <HeaderComponent />
+
             {children}
+            <FooterComponent />
           </ThemeProvider>
         </AuthProvider>
         <Toaster />

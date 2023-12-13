@@ -8,7 +8,6 @@ import { TypeOf, object, string } from "zod";
 
 import { useRouter } from "next/navigation";
 
-import { usePathname } from "next/navigation";
 
 import {
   Form,
@@ -50,7 +49,6 @@ const RegisterForm = () => {
   const [passwordShown, setPasswordShown] = useState(false);
 
   const router = useRouter();
-  const pathname = usePathname();
   const { toast } = useToast();
 
   const form = useForm<RegisterInput>({
@@ -68,7 +66,7 @@ const RegisterForm = () => {
 
   const onSubmit = async (data: RegisterInput) => {
     try {
-      const resUserExists = await fetch("api/userExists", {
+      const resUserExists = await fetch("api/user-exists", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -102,7 +100,9 @@ const RegisterForm = () => {
           title: "Успешно",
           description: "Вы успешно зарегистрировались",
         });
-        router.push("/");
+        setTimeout(() => {
+          router.push("/create");
+        }, 1000);
       }
     } catch (error) {
       console.error(error);
@@ -150,7 +150,7 @@ const RegisterForm = () => {
                 />
               </FormControl>
               <FormDescription
-                className="justify-end flex cursor-pointer"
+                className="justify-end flex cursor-pointer text-[10px]"
                 onClick={handleClickShowPassword}
               >
                 показать пароль
