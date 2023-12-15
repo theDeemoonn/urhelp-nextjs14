@@ -7,12 +7,14 @@
 .yarn/install-state.gz
 .idea
 
+
 # testing
 /coverage
 
 # next.js
 /.next/
 /out/
+/public/user-avatar/
 
 # production
 /build
