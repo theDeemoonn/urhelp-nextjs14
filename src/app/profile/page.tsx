@@ -2,9 +2,9 @@ import { connectMongoDB } from "@/lib/mongodb";
 import { phoneFormatDash } from "@/lib/phone-number";
 import User from "@/models/user";
 import { IUser } from "@/types/IUser";
-import Image from "next/image";
+
 import { getServerSession } from "next-auth/next";
-import avatar from "../../../public/assets/img/avatar.png";
+
 import { Card } from "@/components/ui/card";
 
 import ProfileEditModal from "@/components/edit-profile";
@@ -28,6 +28,7 @@ const Profile = async () => {
   }
 
   const user = await getUser();
+ 
 
   return (
     <div className="flex flex-col items-center justify-center p-24">

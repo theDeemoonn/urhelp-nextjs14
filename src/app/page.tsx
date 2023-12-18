@@ -2,8 +2,7 @@ import { Button } from "@/components/ui/button";
 import { randomBytes } from "crypto";
 import { join } from "path";
 import { writeFile } from "fs/promises";
-import { Label } from "@/components/ui/label";
-import { Input } from "@/components/ui/input";
+
 
 export default async function Home() {
   async function uploadAvatar(data: FormData) {
@@ -51,12 +50,7 @@ export default async function Home() {
   }
   return (
     <main className="flex min-h-screen flex-col items-center justify-between px-24 pt-24">
-      <form action={uploadAvatar} className="grid w-full max-w-sm items-center gap-1.5">
-        <Label htmlFor="avatar">Аватар пользователя</Label>
-        <Input name="file" id="avatar" type="file" />
-        <Button type="submit">Загрузить</Button>
-      </form>
-
+     
       <Button size="sm">Начать</Button>
     </main>
   );

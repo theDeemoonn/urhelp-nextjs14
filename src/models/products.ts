@@ -12,10 +12,10 @@ const productSchema = new Schema(
         description: {
         type: String,
         },
-        image: {
+        category: {
         type: String,
         },
-        category: {
+        date: {
         type: String,
         },
         reviews: [
