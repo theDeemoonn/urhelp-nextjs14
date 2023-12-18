@@ -34,49 +34,7 @@ const ProfileEditModal = async () => {
 
   const user = await getUser();
 
-  // async function uploadAvatar(data: FormData) {
-  //   "use server";
 
-  //   const file: File | null = data.get("file") as unknown as File;
-
-  //   if (!file) {
-  //     throw new Error("No file uploaded");
-  //   }
-
-  //   // Валидация размера файла (например, не более 5 МБ)
-  //   const MAX_SIZE = 5 * 1024 * 1024; // 5 МБ в байтах
-  //   if (file.size > MAX_SIZE) {
-  //     throw new Error("File is too large");
-  //   }
-
-  //   // Валидация типа файла (например, только изображения)
-  //   const ALLOWED_TYPES = ["image/jpeg", "image/png", "image/gif"];
-  //   if (!ALLOWED_TYPES.includes(file.type)) {
-  //     throw new Error("File type is not allowed");
-  //   }
-
-  //   const bytes = await file.arrayBuffer();
-  //   const buffer = Buffer.from(bytes);
-
-  //   // Проверка и обработка расширения файла
-  //   const originalName = file.name;
-  //   const extension = originalName.includes(".")
-  //     ? originalName.split(".").pop()
-  //     : "";
-  //   if (!extension) {
-  //     throw new Error("File has no extension");
-  //   }
-
-  //   // Генерация случайного имени файла
-  //   const randomName = randomBytes(16).toString("hex");
-  //   const filename = `${randomName}.${extension}`;
-  //   const path = join('src/files', filename);
-
-  //   await writeFile(path, buffer);
-  //   console.log(`open ${path} to see the uploaded file`);
-
-  //   return path;
-  // }
 
   async function updateUser(data: FormData) {
     "use server";
