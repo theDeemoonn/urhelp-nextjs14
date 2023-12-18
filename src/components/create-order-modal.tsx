@@ -30,8 +30,8 @@ const orderSchema = object({
     .min(10, {
       message: "Не менее 10 символов.",
     })
-    .max(20, {
-      message: "Не более 20 символов.",
+    .max(30, {
+      message: "Не более 30 символов.",
     }),
   category: string().optional(),
   price: number({
@@ -41,7 +41,7 @@ const orderSchema = object({
     message: "Не менее 1 рубля.",
   }),
 
-  description: string()
+  description: string({ required_error: "Это поле обязательно" })
     .min(10, {
       message: "Не менее 10 символов.",
     })
@@ -121,36 +121,39 @@ const CreateOrderModal = ({ title }: { title: string }) => {
             {...register("description")}
             error={errors.description?.message}
           ></Textarea>
+          <div className="flex justify-between">
+            <Popover>
+              <PopoverTrigger asChild>
+                <Button
+                  variant={"outline"}
+                  className={cn(
+                    "w-[280px] justify-start text-left font-normal",
+                    !date && "text-muted-foreground"
+                  )}
+                >
+                  <CalendarIcon className="mr-2 h-4 w-4" />
+                  {date ? (
+                    format(date, "PPP", { locale: ru })
+                  ) : (
+                    <span>Выберите необходимую дату</span>
+                  )}
+                </Button>
+              </PopoverTrigger>
+              <PopoverContent className="w-auto p-0">
+                <Calendar
+                  mode="single"
+                  selected={date}
+                  onSelect={setDate}
+                  initialFocus
+                  disabled={(day) => day < new Date()}
+                />
+              </PopoverContent>
+            </Popover>
 
-          <Popover>
-            <PopoverTrigger asChild>
-              <Button
-                variant={"outline"}
-                className={cn(
-                  "w-[280px] justify-start text-left font-normal",
-                  !date && "text-muted-foreground"
-                )}
-              >
-                <CalendarIcon className="mr-2 h-4 w-4" />
-                {date ? (
-                  format(date, "PPP", { locale: ru })
-                ) : (
-                  <span>Выберите необходимую дату</span>
-                )}
-              </Button>
-            </PopoverTrigger>
-            <PopoverContent className="w-auto p-0">
-              <Calendar
-                mode="single"
-                selected={date}
-                onSelect={setDate}
-                initialFocus
-                disabled={(day) => day < new Date()}
-              />
-            </PopoverContent>
-          </Popover>
-
-          <Button type="submit">Создать</Button>
+            <Button className="ml-2" type="submit">
+              Создать
+            </Button>
+          </div>
         </form>
       </DialogContent>
     </Dialog>
