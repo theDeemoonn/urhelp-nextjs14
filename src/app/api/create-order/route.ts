@@ -6,7 +6,7 @@ import { getServerSession } from "next-auth";
 
 import { NextResponse } from "next/server";
 
-interface ICreateOrderProps extends IUser {
+export interface ICreateOrderProps extends IUser {
   _id: string;
 }
 

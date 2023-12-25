@@ -1,24 +1,16 @@
 import { create } from 'zustand'
 
-export interface IOrder {
-  title : string;
-  description : string;
-  date : string;
-  category : string;
-  price : number;
+interface IPGLimit {
+  limit: number
+  setLimit: (limit: number) => void
 }
 
 
-export const useStore = create<IOrder>((set, get) => ({
-    title: "",
-    description: "",
-    date: "",
-    category: "",
-    price: 0,
-    setOrder: (order: IOrder) => set({ ...order }),
-    resetOrder: () => set({ title: "", description: "", date: "", category: "", price: 0 }),
-    order: () => get(),
-    }))
+
+export const usePGLimit = create<IPGLimit>((set) => ({
+  limit: 15,
+  setLimit: (limit) => set({ limit }),
+}))
 
 
 

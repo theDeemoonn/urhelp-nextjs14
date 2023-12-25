@@ -12,6 +12,10 @@ import AccountDeleteButton from "@/components/account-delete-button";
 import { Separator } from "@/components/ui/separator";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 
+
+
+
+
 const Profile = async () => {
   const session = await getServerSession();
 
@@ -28,10 +32,14 @@ const Profile = async () => {
   }
 
   const user = await getUser();
- 
+
+  
+  
 
   return (
+    
     <div className="flex flex-col items-center justify-center p-24">
+     
       <h1 className="focus:outline-none text-4xl font-extrabold leading-6 text-gray-800 dark:text-white  dark:border-gray-700">
         Профиль
       </h1>
@@ -115,5 +123,7 @@ const Profile = async () => {
     </div>
   );
 };
+
+
 
 export default Profile;

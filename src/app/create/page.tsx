@@ -31,25 +31,24 @@ const CreateOrder = async () => {
 
   return (
     <div className="flex min-h-screen flex-wrap gap-3 items-center justify-between px-24 pt-24 pb-6">
-      {orderItemsArray &&
-        orderItemsArray.map((item) => (
-          <Card key={item._id} className="w-[450px] ">
-            <CardHeader>
-              <CardTitle>{item.title}</CardTitle>
-              <CardDescription>{item.description}</CardDescription>
-            </CardHeader>
+      {orderItemsArray?.map((item) => (
+        <Card key={item._id} className="w-[450px] ">
+          <CardHeader>
+            <CardTitle>{item.title}</CardTitle>
+            <CardDescription>{item.description}</CardDescription>
+          </CardHeader>
 
-            <CardFooter className="flex justify-between">
-              <Image
-                width={40}
-                height={40}
-                src={item.logo}
-                alt="Picture of the author"
-              />
-              <CreateOrderModal title={item.title} />
-            </CardFooter>
-          </Card>
-        ))}
+          <CardFooter className="flex justify-between">
+            <Image
+              width={40}
+              height={40}
+              src={item.logo}
+              alt="Picture of the author"
+            />
+            <CreateOrderModal title={item.title} />
+          </CardFooter>
+        </Card>
+      ))}
     </div>
   );
 };
