@@ -33,6 +33,14 @@ const productSchema = new Schema(
             type: mongoose.Schema.Types.ObjectId,
             ref: "User",
           },
+          completed: {
+            type: Boolean,
+            default: false,
+          },
+          whoCompleted: {
+            type: mongoose.Schema.Types.ObjectId,
+            ref: "User",
+          },
     },
     { timestamps: true }
     );
