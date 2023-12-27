@@ -113,11 +113,7 @@ const RegisterForm = () => {
     setPasswordShown(!passwordShown);
   };
 
-  const handleMouseDownPassword = (
-    event: React.MouseEvent<HTMLButtonElement>
-  ) => {
-    event.preventDefault();
-  };
+
 
   return (
     <Form {...form}>

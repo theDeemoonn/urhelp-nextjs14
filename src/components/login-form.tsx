@@ -8,9 +8,6 @@ import { signIn } from "next-auth/react";
 import { TypeOf, object, string } from "zod";
 import { useRouter } from "next/navigation";
 
-import { usePathname } from "next/navigation";
-import { revalidatePath } from "next/cache";
-
 import {
   Form,
   FormControl,
@@ -24,7 +21,6 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { useToast } from "./ui/use-toast";
 import { ToastAction } from "./ui/toast";
-import { set } from "mongoose";
 
 const loginSchema = object({
   email: string()
@@ -43,7 +39,7 @@ const LoginForm = () => {
   const [passwordShown, setPasswordShown] = useState(false);
 
   const router = useRouter();
-  const pathname = usePathname();
+
   const { toast } = useToast();
 
   const formLogin = useForm<LoginInput>({
@@ -67,17 +63,15 @@ const LoginForm = () => {
         title: "Успешно",
         description: "Вы успешно вошли в систему",
       });
-     
+
       router.push("/profile");
-     
-      
     } else {
-        toast({
-            variant: "destructive",
-            title: "Произошла ошибка",
-            description: "Проверьте правильность введенных данных",
-            action: <ToastAction altText="Try again">Повторить</ToastAction>,
-          })
+      toast({
+        variant: "destructive",
+        title: "Произошла ошибка",
+        description: "Проверьте правильность введенных данных",
+        action: <ToastAction altText="Try again">Повторить</ToastAction>,
+      });
       console.log(res);
     }
   };
