@@ -6,7 +6,7 @@ import { useState } from "react";
 import { signIn } from "next-auth/react";
 
 import { TypeOf, object, string } from "zod";
-import { useRouter } from "next/navigation";
+import { useRouter, useSearchParams } from "next/navigation";
 
 import {
   Form,
@@ -38,6 +38,10 @@ export type LoginInput = TypeOf<typeof loginSchema>;
 const LoginForm = () => {
   const [passwordShown, setPasswordShown] = useState(false);
 
+  const searchParams = useSearchParams();
+
+  const callbackURL = searchParams.get("callbackUrl") || "/profile";
+
   const router = useRouter();
 
   const { toast } = useToast();
@@ -51,9 +55,9 @@ const LoginForm = () => {
   });
 
   const onSubmitLogin = async (data: LoginInput) => {
-    console.log("data", data);
     const res = await signIn("credentials", {
       ...data,
+
       redirect: false,
     });
 
@@ -64,7 +68,7 @@ const LoginForm = () => {
         description: "Вы успешно вошли в систему",
       });
 
-      router.push("/profile");
+      router.push(callbackURL ? callbackURL : "/profile");
     } else {
       toast({
         variant: "destructive",

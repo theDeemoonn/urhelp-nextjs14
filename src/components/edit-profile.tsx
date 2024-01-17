@@ -16,6 +16,7 @@ import { randomBytes } from "crypto";
 import { join } from "path";
 import { writeFile } from "fs/promises";
 import { promises as fsPromises } from "fs";
+import AccountDeleteButton from "./account-delete-button";
 
 const ProfileEditModal = async () => {
   const session = await getServerSession();
@@ -140,7 +141,9 @@ const ProfileEditModal = async () => {
 
           <Button type="submit">Применить</Button>
         </form>
+        {/* <AccountDeleteButton /> */}
       </DialogContent>
+      
     </Dialog>
   );
 };

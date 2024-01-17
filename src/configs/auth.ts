@@ -79,5 +79,7 @@ export const authConfig: AuthOptions = {
     updateAge: 24 * 60 * 60, // 24 hours
   },
 
+
+
   secret: process.env.NEXTAUTH_SECRET!,
 };

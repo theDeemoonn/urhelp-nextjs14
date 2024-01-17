@@ -53,7 +53,7 @@ const AllOrder = async ({
 
   async function getAllOrderCount() {
     const allOrderItemsCount =
-      await (Product.find().countDocuments() as Promise<number>);
+      await (Product.find().countDocuments({}) as Promise<number>);
 
     if (allOrderItemsCount) {
       return allOrderItemsCount;

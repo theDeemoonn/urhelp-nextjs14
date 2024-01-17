@@ -1,4 +1,4 @@
-export default function Page({ params }: { params: { slug: string } }) {
-    console.log(params);
-    return <div>My Post: {params.slug}</div>
+export default function Page({ params }: { params: { id: string } }) {
+    console.log(params.id);
+    return <div>My Post: {params.id}</div>
   }
