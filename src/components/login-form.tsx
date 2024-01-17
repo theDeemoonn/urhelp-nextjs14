@@ -68,7 +68,7 @@ const LoginForm = () => {
         description: "Вы успешно вошли в систему",
       });
 
-      router.push(callbackURL ? callbackURL : "/profile");
+      router.push("/profile");
     } else {
       toast({
         variant: "destructive",
