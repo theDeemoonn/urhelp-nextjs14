@@ -51,7 +51,7 @@ export default async function Home() {
   return (
     <main className="flex min-h-screen flex-col items-center justify-between px-24 pt-24">
      
-      <Button size="sm">Начать</Button>
+      <Button  size="sm">Начать</Button>
     </main>
   );
 }

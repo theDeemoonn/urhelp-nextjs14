@@ -41,8 +41,8 @@ const ProfileEditModal = async () => {
     let pathToDb = user?.avatar;
 
     if (file && file.size > 0) {
-      // Валидация размера файла ( не более 5 МБ)
-      const MAX_SIZE = 5 * 1024 * 1024;
+      // Валидация размера файла ( не более 1 МБ)
+      const MAX_SIZE = 1 * 1024 * 1024;
       if (file.size > MAX_SIZE) {
         throw new Error("Файл слишком большой");
       }

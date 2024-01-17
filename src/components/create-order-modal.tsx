@@ -1,5 +1,5 @@
 "use client";
-
+import { useSession } from "next-auth/react"
 import { TypeOf, number, object, string } from "zod";
 import { Button } from "./ui/button";
 import {
@@ -24,6 +24,8 @@ import { ru } from "date-fns/locale";
 import { Calendar as CalendarIcon } from "lucide-react";
 import { Popover, PopoverTrigger, PopoverContent } from "./ui/popover";
 import { toast } from "./ui/use-toast";
+import { ToastAction } from "./ui/toast";
+import Link from "next/link";
 
 const orderSchema = object({
   title: string({ required_error: "Это поле обязательно" })
@@ -55,6 +57,7 @@ export type Order = TypeOf<typeof orderSchema>;
 
 const CreateOrderModal = ({ title }: { title: string }) => {
   const [date, setDate] = React.useState<Date>();
+  const { data: session, status } = useSession();
   const {
     handleSubmit,
     register,
@@ -62,6 +65,7 @@ const CreateOrderModal = ({ title }: { title: string }) => {
   } = useForm<Order>({
     resolver: zodResolver(orderSchema),
   });
+  
 
   const onSubmit = async (data: Order) => {
     const fullData = {
@@ -69,6 +73,8 @@ const CreateOrderModal = ({ title }: { title: string }) => {
       date: date ? format(date, "dd-MM-yyyy", { locale: ru }) : undefined,
       category: title,
     };
+
+    if (status === "authenticated") {
 
     const res = await fetch("api/create-order", {
       method: "POST",
@@ -84,6 +90,15 @@ const CreateOrderModal = ({ title }: { title: string }) => {
         description: "Вы успешно создали заказ",
       });
     }
+  } else {
+    localStorage.setItem("draft", JSON.stringify(fullData));
+    toast({
+      variant: "destructive",
+      title: "Ошибка",
+      description: "Вы не авторизованы",
+      action: <ToastAction altText="Login"><Link href='/login'>Авторизоваться</Link></ToastAction>
+    });
+  }
   };
 
   return (
