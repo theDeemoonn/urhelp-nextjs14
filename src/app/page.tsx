@@ -2,6 +2,7 @@ import { Button } from "@/components/ui/button";
 import { randomBytes } from "crypto";
 import { join } from "path";
 import { writeFile } from "fs/promises";
+import HomePageCarousel from "@/components/home-page-carousel";
 
 
 export default async function Home() {
@@ -50,6 +51,8 @@ export default async function Home() {
   }
   return (
     <main className="flex min-h-screen flex-col items-center justify-between px-24 pt-24">
+
+      <HomePageCarousel />
      
       <Button  size="sm">Начать</Button>
     </main>

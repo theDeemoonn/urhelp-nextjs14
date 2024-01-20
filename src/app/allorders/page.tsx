@@ -43,6 +43,7 @@ const AllOrder = async ({
     const allOrderItemsArray = (await Product.find()
       .skip(skip!)
       .limit(limit!)
+      
       .then((res) => res)) as IProduct[];
 
     if (allOrderItemsArray) {
