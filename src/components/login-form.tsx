@@ -53,10 +53,13 @@ const LoginForm = () => {
       password: "",
     },
   });
+  
 
   const onSubmitLogin = async (data: LoginInput) => {
+    const emailToLowerCase = data.email.toLowerCase();
     const res = await signIn("credentials", {
       ...data,
+      email: emailToLowerCase,
 
       redirect: false,
     });

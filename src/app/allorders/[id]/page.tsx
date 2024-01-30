@@ -86,7 +86,7 @@ async function oneOrder({ params }: { params: { id: string } }) {
   return (
     <div className="flex flex-col items-center justify-center sm:p-22 px-3 pt-12 pb-6">
       <Card className="bg-card shadow-xl rounded lg:w-1/3  md:w-1/2 w-full p-10 mt-16 max-sm:p-5">
-        <CardHeader>
+        <CardHeader className="p-1 sm:p-6">
           <CardTitle>{orderItems?.title}</CardTitle>
 
           <CardDescription>
@@ -122,7 +122,7 @@ async function oneOrder({ params }: { params: { id: string } }) {
           </CardContent>
         </CardHeader>
         {isAuth() ? (
-        <CardFooter>
+        <CardFooter className="p-1 sm:p-6">
           <MessageSend key={userID} userId={userID} id={params.id} />
         </CardFooter>
         ) : null}
