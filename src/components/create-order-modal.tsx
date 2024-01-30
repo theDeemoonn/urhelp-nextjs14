@@ -131,11 +131,11 @@ const CreateOrderModal = ({ title }: { title: string }) => {
             })}
           />
 
-          <Textarea
+          <Input
             placeholder="Описание"
             {...register("description")}
             error={errors.description?.message}
-          ></Textarea>
+          />
           <div className="flex justify-between">
             <Popover>
               <PopoverTrigger asChild>
