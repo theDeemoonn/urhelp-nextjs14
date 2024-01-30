@@ -2,6 +2,9 @@ import ChatBubble from "@/components/chat-bubble";
 import MessageSend from "@/components/message";
 
 
+
+
+
 import {
   Card,
   CardContent,
@@ -87,18 +90,18 @@ async function oneOrder({ params }: { params: { id: string } }) {
           <CardTitle>{orderItems?.title}</CardTitle>
 
           <CardDescription>
-            <div>
+         
               <p>Категория: {orderItems?.category}</p>
               <p>Цена: {orderItems?.price}</p>
               <p>Описание: {orderItems?.description}</p>
               <p>Дата: {orderItems?.date}</p>
-            </div>
+          
           </CardDescription>
           <CardContent className="p-0">
             {isAuth() ? (
             <ScrollArea className="h-[400px] w-full rounded-md border p-4">
               {orderItems?.comments.map((item) => (
-                <ChatBubble
+                <ChatBubble 
                   key={item._id}
                   userName={item.user?.name!}
                   text={item.comment}
