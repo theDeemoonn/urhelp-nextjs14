@@ -7,6 +7,9 @@ export interface IProduct {
     date: string;
     reviews: IReview[];
     userId: string;
+    comments: IComment[];
+    completed: boolean;
+    whoCompleted: string;
     }
 
 export interface IReview {
@@ -14,4 +17,11 @@ export interface IReview {
     rating: number;
     comment: string;
     user: string;
+    }
+
+export interface IComment {
+    name: string;
+    comment: string;
+    user: string;
+    time: string;
     }

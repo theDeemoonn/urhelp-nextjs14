@@ -8,7 +8,6 @@ import { TypeOf, object, string } from "zod";
 
 import { useRouter } from "next/navigation";
 
-
 import {
   Form,
   FormControl,
@@ -85,13 +84,18 @@ const RegisterForm = () => {
         });
         return;
       }
+      const emailToLowerCase = data.email.toLowerCase();
 
       const res = await fetch("api/register", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify(data),
+
+        body: JSON.stringify({
+          ...data,
+          email: emailToLowerCase,
+        }),
       });
 
       if (res.ok) {
@@ -112,8 +116,6 @@ const RegisterForm = () => {
   const handleClickShowPassword = () => {
     setPasswordShown(!passwordShown);
   };
-
-
 
   return (
     <Form {...form}>

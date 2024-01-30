@@ -32,7 +32,7 @@ const Profile = async () => {
   const user = await getUser();
 
   return (
-    <div className="flex flex-col items-center justify-center p-24">
+    <div className="flex flex-col items-center justify-center sm:p-24 px-3 pt-12 pb-6">
       <h1 className="focus:outline-none text-4xl font-extrabold leading-6 text-gray-800 dark:text-white  dark:border-gray-700">
         Профиль
       </h1>
@@ -95,15 +95,15 @@ const Profile = async () => {
                 </dd>
               </div>
               <Separator />
-              <div className="bg-card px-4 py-5 sm:grid sm:grid-cols-2 sm:gap-4 sm:px-6">
+              <div className="bg-card px-1 py-5 sm:grid sm:grid-cols-2 sm:gap-4 sm:px-6 ">
                 <dd className="mt-1 text-sm text-gray-800 dark:text-white sm:col-span-2 sm:mt-0">
                   <ul role="list">
-                    <li className="flex items-center justify-end py-3 pl-3 pr-4 text-sm">
+                    <li className="flex items-center justify-end py-3 pl-3 sm:pr-4 text-sm">
                       <div className="ml-4 flex-shrink-0">
                         <ProfileEditModal />
                       </div>
                     </li>
-                    <li className="flex items-center justify-end py-3 pl-3 pr-4 text-sm">
+                    <li className="flex items-center justify-end py-3 pl-3 sm:pr-4 text-sm">
                       <AccountSingOutButton />
                     </li>
                   </ul>

@@ -106,7 +106,7 @@ const CreateOrderModal = ({ title }: { title: string }) => {
       <DialogTrigger asChild>
         <Button>Разместить заказ</Button>
       </DialogTrigger>
-      <DialogContent>
+      <DialogContent className="sm:px-auto sm:pt-auto px-3  pt-12 pb-6">
         <DialogHeader>
           <DialogTitle>{title}</DialogTitle>
           <DialogDescription>
@@ -142,7 +142,7 @@ const CreateOrderModal = ({ title }: { title: string }) => {
                 <Button
                   variant={"outline"}
                   className={cn(
-                    "w-[280px] justify-start text-left font-normal",
+                    "sm:w-[280px] justify-start text-left font-normal",
                     !date && "text-muted-foreground"
                   )}
                 >
@@ -150,11 +150,11 @@ const CreateOrderModal = ({ title }: { title: string }) => {
                   {date ? (
                     format(date, "PPP", { locale: ru })
                   ) : (
-                    <span>Выберите необходимую дату</span>
+                    <span>Выберите  дату</span>
                   )}
                 </Button>
               </PopoverTrigger>
-              <PopoverContent className="w-auto p-0">
+              <PopoverContent className="sm:w-auto sm:p-0">
                 <Calendar
                   mode="single"
                   selected={date}
@@ -165,7 +165,7 @@ const CreateOrderModal = ({ title }: { title: string }) => {
               </PopoverContent>
             </Popover>
 
-            <Button className="ml-2" type="submit">
+            <Button className="sm:ml-2" type="submit">
               Создать
             </Button>
           </div>

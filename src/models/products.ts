@@ -41,6 +41,17 @@ const productSchema = new Schema(
             type: mongoose.Schema.Types.ObjectId,
             ref: "User",
           },
+          comments: [
+            {
+              name: { type: String },
+              comment: { type: String },
+              time: { type: String },
+              user: {
+                type: mongoose.Schema.Types.ObjectId,
+                ref: "User",
+              },
+            },
+          ],
     },
     { timestamps: true }
     );

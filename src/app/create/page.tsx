@@ -30,7 +30,7 @@ const CreateOrder = async () => {
   const orderItemsArray = await getOrderItems();
 
   return (
-    <div className="flex min-h-screen flex-wrap gap-3 items-center justify-between px-24 pt-24 pb-6">
+    <div className="flex min-h-screen flex-wrap gap-3 items-center justify-between sm:px-24 sm:pt-24 px-3 pt-12 pb-6">
       {orderItemsArray?.map((item) => (
         <Card key={item._id} className="w-[450px] ">
           <CardHeader>
@@ -38,8 +38,9 @@ const CreateOrder = async () => {
             <CardDescription>{item.description}</CardDescription>
           </CardHeader>
 
-          <CardFooter className="flex justify-between">
+          <CardFooter className="flex justify-between ">
             <Image
+            
               width={40}
               height={40}
               src={item.logo}

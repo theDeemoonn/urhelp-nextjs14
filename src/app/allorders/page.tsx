@@ -1,4 +1,5 @@
 import PaginationLimits from "@/components/pagination-limit";
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Button } from "@/components/ui/button";
 import {
   Card,
@@ -19,14 +20,15 @@ import {
 } from "@/components/ui/pagination";
 import { connectMongoDB } from "@/lib/mongodb";
 import Product from "@/models/products";
-import User from "@/models/user";
 
 import { IProduct } from "@/types/IProduct";
 import { IUser } from "@/types/IUser";
 
-
-import Image from "next/image";
 import Link from "next/link";
+
+interface IProductWithUser extends Omit<IProduct, "userId"> {
+  userId: IUser;
+}
 
 const AllOrder = async ({
   params,
@@ -43,8 +45,10 @@ const AllOrder = async ({
     const allOrderItemsArray = (await Product.find()
       .skip(skip!)
       .limit(limit!)
-      
-      .then((res) => res)) as IProduct[];
+      .populate("userId")
+      .exec()
+
+      .then((res) => res)) as IProductWithUser[];
 
     if (allOrderItemsArray) {
       return allOrderItemsArray;
@@ -53,8 +57,9 @@ const AllOrder = async ({
   }
 
   async function getAllOrderCount() {
-    const allOrderItemsCount =
-      await (Product.find().countDocuments({}) as Promise<number>);
+    const allOrderItemsCount = await (Product.find().countDocuments(
+      {}
+    ) as Promise<number>);
 
     if (allOrderItemsCount) {
       return allOrderItemsCount;
@@ -64,7 +69,6 @@ const AllOrder = async ({
 
   const allOrderItemsCount = await getAllOrderCount();
   // const allOrderItemsCount = 45;
-
 
   let page = parseInt(lastPage as string, 10);
 
@@ -90,29 +94,13 @@ const AllOrder = async ({
   }
 
   const allOrderItemsArray = await getAllOrder(limit, skip);
-  const userIds = allOrderItemsArray?.flatMap((e) => e.userId);
-
-  async function findUsersByIds(userIds: string[]) {
-    "use server";
-
-    try {
-      const users = await User.find({ _id: { $in: userIds } });
-
-      return users;
-    } catch (error) {
-      console.error("Error finding users:", error);
-      return null;
-    }
-  }
-
-  const users = (await findUsersByIds(userIds ?? [])) as IUser[];
-  // const users = await getAllOrder().then((res) => res?.flatMap((e) => e.userId)) as IUser[];
 
   return (
     <div className="flex flex-col mb-6 items-center justify-center">
-      <div className="flex min-h-screen flex-wrap  gap-3 items-center justify-between px-24 pt-24 pb-6">
-        {allOrderItemsArray?.map((item) => (
-          <Card key={item._id} className="w-[450px] ">
+      <div className="flex min-h-screen flex-wrap  gap-3 items-center justify-between sm:px-24 sm:pt-24 px-3 pt-12 pb-6">
+        {allOrderItemsArray?.map((item) =>  (
+          
+          <Card key={item._id} className="sm:w-[450px] w-full">
             <CardHeader>
               <div className="flex justify-between">
                 <CardTitle>{item.title}</CardTitle>
@@ -134,18 +122,17 @@ const AllOrder = async ({
 
             <CardFooter className="flex justify-between">
               <p className="font-medium leading-none">
-                Заказчик:{" "}
-                {`${users.map((item) => item.name)} ${users.map(
-                  (item) => item.surname
-                )}`}
+                Заказчик: {item.userId.surname} {item.userId.name}
               </p>
-              <Image
-                className="relative flex h-10 w-10 shrink-0 overflow-hidden rounded-full"
-                width={35}
-                height={35}
-                src={`${users.map((item) => (item ? item.avatar : ""))}`}
-                alt={""}
-              />
+
+              <Avatar className="h-10 w-10">
+                <AvatarImage src={item.userId.avatar} alt="user avatar" />
+                <AvatarFallback className="text-xl ">
+                  {`${item.userId?.surname?.charAt(0)?.toUpperCase() ?? ""}${
+                    item.userId?.name?.charAt(0)?.toUpperCase() ?? ""
+                  }`}
+                </AvatarFallback>
+              </Avatar>
             </CardFooter>
           </Card>
         ))}
