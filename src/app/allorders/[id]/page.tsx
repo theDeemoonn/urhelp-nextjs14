@@ -116,7 +116,7 @@ async function oneOrder({ params }: { params: { id: string } }) {
             </ScrollArea>
             ) : (
               <div className="flex flex-col items-center justify-center">
-               <p className="mt-5 text-2xl">Чтобы отправить сообщение, вам необходимо <Link prefetch className=" text-primary"  href="/login">войти</Link> или <Link prefetch className=" text-primary" href="/register">зарегистрироваться</Link></p>
+               <p className="mt-5 text-2xl">Чтобы отправить сообщение, вам необходимо <Link  className=" text-primary"  href="/login">войти</Link> или <Link  className=" text-primary" href="/register">зарегистрироваться</Link></p>
               </div>
             )}
           </CardContent>
