@@ -116,7 +116,7 @@ const AllOrder = async ({
               <CardContent>
                 <p>Цена: {item.price}</p>
                 <p>Описание: {item.description}</p>
-                <p>Дата: {item.date}</p>
+                <p>Дата до: {item.date}</p>
               </CardContent>
             </CardHeader>
 

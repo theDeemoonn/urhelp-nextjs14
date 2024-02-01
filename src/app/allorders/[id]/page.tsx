@@ -94,13 +94,20 @@ async function oneOrder({ params }: { params: { id: string } }) {
               <p>Категория: {orderItems?.category}</p>
               <p>Цена: {orderItems?.price}</p>
               <p>Описание: {orderItems?.description}</p>
-              <p>Дата: {orderItems?.date}</p>
+              <p>Дата до: {orderItems?.date}</p>
           
           </CardDescription>
           <CardContent className="p-0">
             {isAuth() ? (
             <ScrollArea className="h-[400px] w-full rounded-md border p-4">
-              {orderItems?.comments.map((item) => (
+              {orderItems?.comments.length === 0 ? (
+                <div className="flex flex-col items-center justify-center">
+                  <p className="mt-5 text-2xl">Нет сообщений</p>
+                </div>
+              ) : (
+              orderItems?.comments.map((item) => (
+              
+                
                 <ChatBubble 
                   key={item._id}
                   userName={item.user?.name!}
@@ -110,8 +117,10 @@ async function oneOrder({ params }: { params: { id: string } }) {
                   dir={
                     item.user?.email === session?.user?.email ? "rtl" : "ltr"
                   }
-                />
-              ))}
+                /> 
+                
+              ))
+              )}
             
             </ScrollArea>
             ) : (

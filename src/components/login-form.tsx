@@ -5,7 +5,7 @@ import { useForm } from "react-hook-form";
 import { useState } from "react";
 import { signIn } from "next-auth/react";
 
-import { TypeOf, object, string } from "zod";
+import { object, string, TypeOf } from "zod";
 import { useRouter, useSearchParams } from "next/navigation";
 
 import {
@@ -53,7 +53,6 @@ const LoginForm = () => {
       password: "",
     },
   });
-  
 
   const onSubmitLogin = async (data: LoginInput) => {
     const emailToLowerCase = data.email.toLowerCase();
