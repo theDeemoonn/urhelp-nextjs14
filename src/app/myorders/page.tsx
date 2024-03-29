@@ -2,7 +2,6 @@ import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle }
 import { Pagination, PaginationContent, PaginationEllipsis, PaginationItem, PaginationLink, PaginationNext, PaginationPrevious } from '@/components/ui/pagination'
 import React from 'react'
 
-import Image from "next/image";
 import Link from "next/link";
 
 
@@ -12,6 +11,9 @@ import Product from '@/models/products';
 import { IProduct } from '@/types/IProduct';
 import User from '@/models/user';
 import { IUser } from '@/types/IUser';
+import { getServerSession } from 'next-auth/next';
+import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
+
 
 const MyOrders = async ({
     params,
@@ -23,19 +25,41 @@ const MyOrders = async ({
 
     const lastPage = searchParams.page?.[searchParams.page.length - 1] ?? 1;
 
-    async function getAllOrder(limit?: number, skip?: number) {
+    const session = await getServerSession();
+
+    async function getAllOrderByUserId(userId: string) {
+      "use server";
+  
+      try {
+        const allOrderItemsArray = (await Product.find({ userId: userId })
+          .then((res) => res) as IProduct[]);
+  
+        if (allOrderItemsArray) {
+          return allOrderItemsArray;
+        }
+        return null;
+      } catch (error) {
+        console.error("Error finding orders:", error);
+        return null;
+      }
+    }
+
+    async function getUser() {
       "use server";
       connectMongoDB();
-      const allOrderItemsArray = (await Product.find()
-        .skip(skip!)
-        
-        .then((res) => res)) as IProduct[];
-  
-      if (allOrderItemsArray) {
-        return allOrderItemsArray;
+      const user: IUser | null = await User.findOne({
+        email: session?.user?.email,
+      });
+      if (user) {
+        return user;
       }
       return null;
     }
+  
+    const user = await getUser();
+
+  
+
   
     async function getAllOrderCount() {
       const allOrderItemsCount =
@@ -73,31 +97,18 @@ const MyOrders = async ({
         pageNumbers.push(i);
       }
     }
-  
-    const allOrderItemsArray = await getAllOrder(limit, skip);
-    const userIds = allOrderItemsArray?.flatMap((e) => e.userId);
-  
-    async function findUsersByIds(userIds: string[]) {
-      "use server";
-  
-      try {
-        const users = await User.find({ _id: { $in: userIds } });
-  
-        return users;
-      } catch (error) {
-        console.error("Error finding users:", error);
-        return null;
-      }
-    }
-  
-    const users = (await findUsersByIds(userIds ?? [])) as IUser[];
+
+    const allOrderById = await getAllOrderByUserId(user?.id!);
+
+
+    
 
 
   return (
     <div className="flex flex-col mb-6 items-center justify-center">
     <div className="flex min-h-screen flex-wrap  gap-3 items-center justify-between px-24 pt-24 pb-6">
-      {allOrderItemsArray?.map((item) => (
-        <Card key={item._id} className="w-[450px] ">
+      {allOrderById?.map((item) => (
+        <Card key={item._id} className="w-[450px] h-[310px]">
           <CardHeader>
             <div className="flex justify-between">
               <CardTitle>{item.title}</CardTitle>
@@ -120,17 +131,17 @@ const MyOrders = async ({
           <CardFooter className="flex justify-between">
             <p className="font-medium leading-none">
               Заказчик:{" "}
-              {`${users.map((item) => item.name)} ${users.map(
-                (item) => item.surname
-              )}`}
+              {user?.surname} {user?.name}
+            
             </p>
-            <Image
-              className="relative flex h-10 w-10 shrink-0 overflow-hidden rounded-full"
-              width={35}
-              height={35}
-              src={`${users.map((item) => (item ? item.avatar : ""))}`}
-              alt={""}
-            />
+           <Avatar className="h-10 w-10">
+                <AvatarImage src={user?.avatar} alt="user avatar" />
+                <AvatarFallback className="text-xl ">
+                  {`${user?.surname?.charAt(0)?.toUpperCase() ?? ""}${
+                    user?.name?.charAt(0)?.toUpperCase() ?? ""
+                  }`}
+                </AvatarFallback>
+              </Avatar>
           </CardFooter>
         </Card>
       ))}

@@ -79,6 +79,19 @@ export const authConfig: AuthOptions = {
     updateAge: 24 * 60 * 60, // 24 hours
   },
 
+  callbacks: {
+    async jwt({ token, account, profile }) { 
+      if(account && account.type === "credentials") { //(2)
+        token.userId = account.providerAccountId; // this is Id that coming from authorize() callback 
+      }
+      return token;
+    },
+    async session({ session, token, user }) { 
+      session.user.id = token.userId; //(3)
+      return session;
+    },
+  },
+
 
 
   secret: process.env.NEXTAUTH_SECRET!,
